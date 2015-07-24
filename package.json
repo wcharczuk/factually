@@ -1,0 +1,19 @@
+{
+    "name": "Factually",
+    "version": "1.0.0",
+    "repository": "http://www.github.com/wcharczuk/factually",
+    "description": "Making politics easier to understand.",
+    "dependencies": {
+        "grunt": "*",
+        "grunt-aws": "*",
+        "grunt-processhtml": "*",
+        "grunt-cache-breaker": "*",
+        "grunt-contrib-clean": "*",
+        "grunt-contrib-concat": "*",
+        "grunt-contrib-copy": "*",
+        "grunt-contrib-cssmin": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-less": "*",
+        "grunt-contrib-uglify": "*"
+    }
+}
