@@ -11,7 +11,8 @@ In a terminal, run the following:
 
 ```bash
 npm install -g grunt grunt-cli bower
-grunt build && grunt start
+npm install
+grunt build
 ```
 
 This will install some node dependencies, such as grunt and bower, and then set up the node modules and bower components.
