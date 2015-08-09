@@ -1,21 +1,25 @@
 {
-    "name": "Factually",
-    "version": "1.0.0",
-    "repository": "http://www.github.com/wcharczuk/factually",
-    "description": "Making politics easier to understand.",
-    "license" : "MIT",
-    "dependencies": {
-        "grunt": "*",
-        "grunt-aws": "*",
-        "grunt-processhtml": "*",
-        "grunt-babel": "*",
-        "grunt-cache-breaker": "*",
-        "grunt-contrib-clean": "*",
-        "grunt-contrib-concat": "*",
-        "grunt-contrib-copy": "*",
-        "grunt-contrib-cssmin": "*",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-less": "*",
-        "grunt-contrib-uglify": "*"
-    }
+  "name": "Factually",
+  "version": "1.0.0",
+  "repository": "http://www.github.com/wcharczuk/factually",
+  "description": "Making politics easier to understand.",
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "*",
+    "grunt-aws": "*",
+    "grunt-processhtml": "*",
+    "grunt-babel": "*",
+    "grunt-cache-breaker": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-uglify": "*"
+  },
+  "devDependencies": {
+    "grunt-jsxhint": "^0.6.0",
+    "grunt-nodestatic": "^0.1.2"
+  }
 }

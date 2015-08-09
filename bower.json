@@ -23,6 +23,7 @@
   "dependencies": {
     "react": "~0.13.3",
     "less": "~2.5.1",
-    "lodash": "~3.10.0"
+    "lodash": "~3.10.0",
+    "bootstrap": "~3.3.5"
   }
 }

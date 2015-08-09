@@ -19,32 +19,32 @@ module.exports = function(grunt) {
       }
     },
 
-    concat: {
-      options: {
-        separator: ";"
-      }, 
-      app: {
-        src: [
-          'bower_components/react/react.js'
-        ],
-        dest: "dist/js/app.js"
+    clean: {
+      dist: {
+        src: [ 'dist/*' ]
       },
-      css: {
-        src: [
-          "dist/css/app.less.css"
-        ]
+    },
+
+    babel: {
+      options: {
+        sourceMap: true
+      },
+      dist: {
+        files: {
+          'dist/js/app.js': 'app/jsx/app.jsx'
+        }
       }
     },
 
-    less: {            
+    less: {
       compile: {
         options: {
           strictMath: true,
           outputSourceFiles: true,
           paths: [
             "app/less/", 
-            "bower_components/bootstrap/less/",
-            "bower_components/bootstrap/less/mixins"
+            "app/vendor/bootstrap/less/",
+            "app/vendor/bootstrap/less/mixins"
           ],
         },
         files: {
@@ -57,29 +57,29 @@ module.exports = function(grunt) {
       "dist/css/app.min.css" : ["dist/css/app.css"]
     },
 
-    babel: {
-      options: {
-        sourceMap: true
-      },
-      dev: {
-        files: {
-            'app/js/app.jsx': 'app/js/app.js'
-        }
-      },
-      dev: {
-        files: {
-            'app/js/app.jsx': 'dist/js/app.js'
-        }
-      }
-    }
-
     processhtml : {
       dist : {
         options : {
           process: true,
         },
         files : {
-          'dist/index.html': ['index.html']
+          'dist/index.html': ['app/index.html']
+        }
+      }
+    },
+
+    uglify : {
+      options: {
+        mangle: false
+      },
+      dist : {
+        files: {
+          'dist/js/deps.js': [
+            'app/vendor/lodash/lodash.min.js', 
+            'app/vendor/react/react-with-addons.min.js',
+            'app/vendor/jquery/dist/jquery.min.js',
+            'app/vendor/bootstrap/dist/js/bootstrap.min.js'
+          ]
         }
       }
     },
@@ -88,36 +88,34 @@ module.exports = function(grunt) {
       dist : {
         files : [
           { src: "app/partials/*", dest: "dist/" },
-          { src: "app/images/*", dest: "dist/" },
-          { expand: true, cwd: "app/fonts/", src: ["*"], dest: "dist/fonts/" },
-        ]
-      },
-      dev: {
-        files : [
-          { src: 'bower_components/lodash/lodash.min.js', dest: 'app/js/deps/lodash.min.js' },
-          { src: 'bower_components/react/react.min.js', dest: 'app/js/deps/react.min.js' },
-          { src: 'bower_components/react/jsxtransformer.js', dest: 'app/js/deps/jsxtransformer.js' },
-          { src: 'bower_components/less/dist/less.min.js', dest: 'app/js/deps/less.min.js' },
+          { src: "app/images/*", dest: "dist/" }
         ]
       }
     },
 
-    clean: {
-      dist: {
-        src: [ 'dist/*' ]
-      },
+    nodestatic: {
+      server: {
+        options: {
+          port: 8080,
+          base: 'dist',
+          keepalive: true,
+          verbose: true
+        }
+      }
     }
   });
 
+  grunt.loadNpmTasks('grunt-aws');
+  grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-processhtml');
   grunt.loadNpmTasks('grunt-cache-breaker');
-  grunt.loadNpmTasks('grunt-aws');
-  grunt.loadNpmTasks('grunt-babel');
+  grunt.loadNpmTasks('grunt-nodestatic');
 
   grunt.registerTask(
     'deploy',
@@ -125,31 +123,28 @@ module.exports = function(grunt) {
     [ 's3:dist' ]
   );
   grunt.registerTask(
-    'dev',
-    'Sets up the development environment',
-    [ 
-      'copy:dev',
-      'babel:dev'
-    ]
+    'start',
+    'Start a local static webserver',
+    [ 'nodestatic' ]
   );
   grunt.registerTask(
     'lessc',
-    "Compiles the less files.",
+    'Compiles the less files.',
     ['less:compile', 'cssmin' ]
   );
   grunt.registerTask(
       'build', 
       'Compiles all of the assets and copies the files to the build directory.', 
       [ 
-        'clean:dist', 
-        'concat:app', 
-        'babel:dist',
+        'clean:dist',
+        'babel',
+        'uglify:dist',
         'less:compile',
-        'concat:css',
         'cssmin',
         'processhtml:dist',
-        'cachebreaker:dist',
         'copy:dist'
       ]
   );
+
+  grunt.registerTask('default', ['build']);
 };
