@@ -23,6 +23,9 @@ module.exports = function(grunt) {
       dist: {
         src: [ 'dist/*' ]
       },
+      artifacts : {
+        src: [ 'app/css/**' ]
+      }
     },
 
     babel: {
@@ -48,13 +51,13 @@ module.exports = function(grunt) {
           ],
         },
         files: {
-          "dist/css/app.less.css" : "app/less/factually.less"
+          "app/css/app.css" : "app/less/factually.less"
         }
       },
     },
 
     cssmin: {
-      "dist/css/app.min.css" : ["dist/css/app.css"]
+      "dist/css/app.min.css" : ["app/css/app.css"]
     },
 
     processhtml : {
@@ -87,7 +90,6 @@ module.exports = function(grunt) {
     copy : {
       dist : {
         files : [
-          { src: "app/partials/*", dest: "dist/" },
           { src: "app/images/*", dest: "dist/" }
         ]
       }
@@ -97,7 +99,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 8080,
-          base: 'dist',
+          base: 'app',
           keepalive: true,
           verbose: true
         }
@@ -142,7 +144,21 @@ module.exports = function(grunt) {
         'less:compile',
         'cssmin',
         'processhtml:dist',
-        'copy:dist'
+        'copy:dist',
+        'clean:artifacts'
+      ]
+  );
+
+  grunt.registerTask(
+      'dev', 
+      'Compiles all of the assets and copies the files to the build directory.', 
+      [ 
+        'babel',
+        'less:compile',
+        'cssmin',
+        'processhtml:dist',
+        'copy:dist',
+        'clean:artifacts'
       ]
   );
 
