@@ -90,7 +90,9 @@ module.exports = function(grunt) {
     copy : {
       dist : {
         files : [
-          { src: "app/images/*", dest: "dist/" }
+          { src: "app/images/*", dest: "dist/" },
+          { expand: true, cwd: "data/", src: ["*/*.json"], dest: "dist/data/" },
+          { expand: true, cwd: "data/", src: ["*/*.json"], dest: "app/data/" },
         ]
       }
     },
@@ -99,7 +101,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 8080,
-          base: 'app',
+          base: 'dist',
           keepalive: true,
           verbose: true
         }

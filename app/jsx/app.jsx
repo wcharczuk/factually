@@ -1,64 +1,149 @@
-var data = [
-  {author: "Pete Hunt", text: "This is one comment"},
-  {author: "Jordan Walke", text: "This is *another* comment"}
-];
+var ELECTION_YEAR = "2016";
 
-var Comment = React.createClass({
-  render: function() {
-    return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-        <span className="commentText">{this.props.text}</span>
-      </div>
-    );
+if (!Array.prototype.Each) {
+  Array.prototype.Each = function(action) {
+    for (var x = 0; x < this.length; x++) {
+      var elem = this[x];
+      action(elem, x);
+    }
+  };
+}
+
+if (!Array.prototype.Where) {
+  Array.prototype.Where = function(predicate) {
+    var results = [];
+    this.Each(function(elem) {
+      if (predicate(elem)) {
+        results.push(elem);
+      }
+    });
+    return elem;
   }
-});
+}
 
-var CommentList = React.createClass({
+if (!Array.prototype.First) {
+  Array.prototype.First = function(predicate) {
+    if (this.length == 0) {
+      return null;
+    }
+
+    if (!predicate) {
+      return this[0];
+    }
+
+    var foundElem = null;
+    for (var x = 0; x < this.length; x++) {
+      var elem = this[x];
+      if (predicate(elem)) {
+        return elem;
+      }
+    };
+    return null;
+  }
+}
+
+var DataGridBody = React.createClass({
   render: function() {
-    var commentNodes = this.props.data.map(function (comment) {
+    var findCandidateById = function(id) {
+      return this.props.candidate.First(function(c) {
+        return c.id == id
+      });
+    };
+
+    var issues = this.props.issues.issues.map(function(issue) {
+
+      var candidatePositions = [];
+      for (var objectKey in issue.byCandidate) {
+        var value = issue.byCandidate[objectKey];
+        candidatePositions.push(value);
+      }
+
+      var byCandidate = candidatePositions.map(function(position) {
+        return (
+          <td>{position}</td>
+        )
+      });
+
       return (
-        <Comment author={comment.author}>
-          {comment.text}
-        </Comment>
+        <tr>
+          <td className="issue-category">{issue.category}</td>
+          <td className="issue-description">{issue.description}</td>
+          <td className="america-for">{issue.america.for}</td>
+          <td className="america-against">{issue.america.against}</td>
+          <td className="america-result">{issue.america.result}</td>
+          {byCandidate}
+        </tr>
       );
     });
     return (
-      <div className="commentList">
-        {commentNodes}
-      </div>
+      <tbody>
+        {issues}
+      </tbody>
     );
   }
 });
 
-var CommentForm = React.createClass({
+var DataGridHeader = React.createClass({
   render: function() {
+    var candidates = this.props.candidates.candidates.map(function(candidate) {
+      return (
+        <th><a href="{candidate.website}" target="_blank">{candidate.firstName} {candidate.lastName}</a></th>
+      )
+    });
     return (
-      <div className="commentForm">
-        Hello, world! I am a CommentForm.
-      </div>
+      <thead>
+        <tr>
+          <th>Issue Category</th>
+          <th>Issue Description</th>
+          <th>For</th>
+          <th>Against</th>
+          <th>Result</th>
+          {candidates}
+        </tr>
+      </thead>
     );
   }
 });
 
-var CommentBox = React.createClass({
+var DataGrid = React.createClass({
   getInitialState: function() {
-    return {data: data};
+    return { issues: { issues: [] }, candidates: { candidates: [] } };
+  },
+  componentDidMount: function() {
+    $.ajax({
+      url: "data/2016/issues.json",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({issues: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error("data/2016/issues.json", status, err.toString());
+      }.bind(this)
+    });
+    $.ajax({
+      url: "data/2016/candidates.json",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({candidates: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error("data/2016/candidates.json", status, err.toString());
+      }.bind(this)
+    });
   },
   render: function() {
     return (
-      <div className="commentBox">
-        <h1>Comments</h1>
-        <CommentList data={this.props.data} />
-        <CommentForm />
-      </div>
+      <table className="issues">
+        <DataGridHeader issues={this.state.issues} candidates={this.state.candidates} />
+        <DataGridBody issues={this.state.issues} candidates={this.state.candidates} />
+      </table>
     );
   }
 });
 
 React.render(
-  <CommentBox data={data} />,
+  <DataGrid/>,
   document.getElementById('content')
 );
