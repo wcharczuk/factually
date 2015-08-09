@@ -1,0 +1,102 @@
+{
+	"created": "2015-08-16",
+	"updated": "2015-08-16",
+	"candidates": [
+		{
+			"id": 1,
+			"firstName": "Hillary",
+			"lastName": "Clinton",
+			"party": "Democrats",
+			"website": "https://www.hillaryclinton.com/",
+			"alignmentWithAmericans": 0.7414
+		},
+		{
+			"id": 2,
+			"firstName": "Bernie",
+			"lastName": "Sanders",
+			"party": "Democrats",
+			"website": "https://berniesanders.com/",
+			"alignmentWithAmericans": 0.7742
+		},
+		{
+			"id": 3,
+			"firstName": "Martin",
+			"lastName": "O'Malley",
+			"party": "Democrats",
+			"website": "https://martinomalley.com/",
+			"alignmentWithAmericans": 0.7941
+		},
+		{
+			"id": 4,
+			"firstName": "Marco",
+			"lastName": "Rubio",
+			"party": "Republicans",
+			"website": "https://marcorubio.com/",
+			"alignmentWithAmericans": 0.3571
+		},
+		{
+			"id": 5,
+			"firstName": "Jeb",
+			"lastName": "Bush",
+			"party": "Republicans",
+			"website": "https://jeb2016.com/",
+			"alignmentWithAmericans": 0.4091
+		},
+		{
+			"id": 6,
+			"firstName": "Scott",
+			"lastName": "Walker",
+			"party": "Republicans",
+			"website": "https://www.scottwalker.com/",
+			"alignmentWithAmericans": 0.1875
+		},
+		{
+			"id": 7,
+			"firstName": "Ted",
+			"lastName": "Cruz",
+			"party": "Republicans",
+			"website": "https://www.tedcruz.org/",
+			"alignmentWithAmericans": 0.3077
+		},
+		{
+			"id": 8,
+			"firstName": "Ben",
+			"lastName": "Carson",
+			"party": "Republicans",
+			"website": "https://www.bencarson.com/",
+			"alignmentWithAmericans": 0.4500
+		},
+		{
+			"id": 9,
+			"firstName": "Rand",
+			"lastName": "Paul",
+			"party": "Republicans",
+			"website": "https://www.randpaul.com/",
+			"alignmentWithAmericans": 0.4348
+		},
+		{
+			"id": 10,
+			"firstName": "Mike",
+			"lastName": "Huckabee",
+			"party": "Republicans",
+			"website": "https://www.mikehuckabee.com/",
+			"alignmentWithAmericans": 0.3333
+		},
+		{
+			"id": 11,
+			"firstName": "George",
+			"lastName": "Pataki",
+			"party": "Republicans",
+			"website": "http://www.georgepataki.com/",
+			"alignmentWithAmericans": 0.5556
+		},
+		{
+			"id": 12,
+			"firstName": "Donald",
+			"lastName": "Trump",
+			"party": "Republicans",
+			"website": "https://www.donaldjtrump.com/",
+			"alignmentWithAmericans": 0.4706
+		}
+	]
+}

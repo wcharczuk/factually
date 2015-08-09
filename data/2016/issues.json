@@ -1,0 +1,136 @@
+{
+	"created": "2015-08-16",
+	"updated": "2015-08-16",
+	"issues": [
+		{
+			"id": 1,
+			"category": "Abortion",
+			"description": "Overturn Roe v. Wade",
+			"pollingSource": null,
+			"america": {
+				"for": 0.29,
+				"against": 0.53,
+				"result": "Against",
+				"trend": null
+			},
+			"byCandidate": {
+				"1": "Against",
+				"2": "Against",
+				"3": "Against",
+				"4": "For",
+				"5": null,
+				"6": null,
+				"7": "For",
+				"8": null,
+				"9": null,
+				"10": null,
+				"11": "Against",
+				"12": null
+			}
+		},
+		{
+			"id": 2,
+			"category": "Abortion",
+			"description": "Support exceptions for rape and incest",
+			"pollingSource": "http://www.gallup.com/poll/1576/abortion.aspx",
+			"america": {
+				"for": 0.75,
+				"against": 0.22,
+				"result": "For",
+				"trend": "Down"
+			},
+			"byCandidate": {
+				"1": "For",
+				"2": "For",
+				"3": "For",
+				"4": "Against",
+				"5": "For",
+				"6": "Against",
+				"7": "Against",
+				"8": "Against",
+				"9": "Against",
+				"10": "Against",
+				"11": null,
+				"12": "For"
+			}
+		},
+		{
+			"id": 3,
+			"category": "Abortion",
+			"description": "Abortion illegal after 20 weeks, except rape",
+			"pollingSource": "http://www.washingtonpost.com/blogs/the-fix/wp/2015/01/22/the-most-surprising-part-about-the-gops-failed-20-week-abortion-ban-push-it-was-popular/",
+			"america": {
+				"for": 0.55,
+				"against": 0.30,
+				"result": "For",
+				"trend": null
+			},
+			"byCandidate": {
+				"1": "Against",
+				"2": "Against",
+				"3": "Against",
+				"4": "For",
+				"5": "For",
+				"6": "For",
+				"7": "For",
+				"8": "For",
+				"9": "For",
+				"10": "For",
+				"11": "Against",
+				"12": null
+			}
+		},
+		{
+			"id": 4,
+			"category": "Banking & Finance",
+			"description": "Break up big banks",
+			"pollingSource": "http://www.washingtonsblog.com/2013/04/only-23-of-americans-opposed-to-breaking-up-big-banks.html",
+			"america": {
+				"for": 0.50,
+				"against": 0.23,
+				"result": "For",
+				"trend": null
+			},
+			"byCandidate": {
+				"1": "Against",
+				"2": "For",
+				"3": "For",
+				"4": null,
+				"5": null,
+				"6": null,
+				"7": null,
+				"8": null,
+				"9": null,
+				"10": null,
+				"11": null,
+				"12": null
+			}
+		},
+		{
+			"id": 5,
+			"category": "Civil Rights",
+			"description": "Gay marriage",
+			"pollingSource": "http://www.washingtonsblog.com/2013/04/only-23-of-americans-opposed-to-breaking-up-big-banks.html",
+			"america": {
+				"for": 0.61,
+				"against": 0.35,
+				"result": "For",
+				"trend": null
+			},
+			"byCandidate": {
+				"1": "For",
+				"2": "For",
+				"3": "Against",
+				"4": "Against",
+				"5": "Against",
+				"6": "Against",
+				"7": "Against",
+				"8": "Against",
+				"9": "Against",
+				"10": "Against",
+				"11": null,
+				"12": "Against"
+			}
+		}
+	]
+}
