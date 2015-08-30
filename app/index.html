@@ -28,7 +28,24 @@
     <!-- /build -->
   </head>
   <body>
-    <div id="content"></div>
+    <div class="container-fluid">
+        <div class="header row">
+            <div class="logo"><h1>factually</h1></div>
+        </div>
+        <div class="summary row">
+            <div class="jumbotron col-md-6">
+              <h1>What does the american public think?</h1>
+              <h1>What do the candidates think?</h1>
+              <p>We compared the polling results of the American people on 50 important issues
+              with the positions of the 2016 presidential candidates on those issues.</p>
+            </div>
+            <div class="col-md-6">
+                <div id="leaderboard"></div>
+            </div>
+        </div>
+        <div id="content" class="row">
+        </div>
+    </div>
     <!-- build:js js/app.js -->
     <script type="text/jsx" src="jsx/app.jsx"></script>
     <!-- /build -->

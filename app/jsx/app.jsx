@@ -1,51 +1,43 @@
 var ELECTION_YEAR = "2016";
 
-if (!Array.prototype.Each) {
-  Array.prototype.Each = function(action) {
-    for (var x = 0; x < this.length; x++) {
-      var elem = this[x];
-      action(elem, x);
-    }
-  };
-}
 
-if (!Array.prototype.Where) {
-  Array.prototype.Where = function(predicate) {
-    var results = [];
-    this.Each(function(elem) {
-      if (predicate(elem)) {
-        results.push(elem);
-      }
-    });
-    return elem;
+
+var orderByDescending = function(collection, selector) {
+  if(typeof(selector) === 'undefined') { selector = function(_) { return _; } }
+
+  var sortable = [];
+  for(var x = 0; x < collection.length; x++) {
+    sortable.push(collection[x]);
   }
+
+  var output = sortable.sort(function(a, b){
+    var a0 = selector(a);
+    var b0 = selector(b);
+
+    if(a0 == b0) { return 0; }
+    else if (a0 > b0) { return -1; }
+    else { return 1; }
+  });
+
+  return output;
 }
 
-if (!Array.prototype.First) {
-  Array.prototype.First = function(predicate) {
-    if (this.length == 0) {
-      return null;
-    }
+var take = function(collection, number) {
+    var output = [];
 
-    if (!predicate) {
-      return this[0];
-    }
+    if(number > collection.length) { number = collection.length; }
 
-    var foundElem = null;
-    for (var x = 0; x < this.length; x++) {
-      var elem = this[x];
-      if (predicate(elem)) {
-        return elem;
-      }
-    };
-    return null;
-  }
+    for(var x =0; x < number; x++) {
+        output.push(collection[x]);
+    }
+    return output;
 }
+
 
 var DataGridBody = React.createClass({
   render: function() {
     var findCandidateById = function(id) {
-      return this.props.candidate.First(function(c) {
+      return this.props.candidates.first(function(c) {
         return c.id == id
       });
     };
@@ -135,7 +127,7 @@ var DataGrid = React.createClass({
   },
   render: function() {
     return (
-      <table className="issues">
+      <table className="table issues">
         <DataGridHeader issues={this.state.issues} candidates={this.state.candidates} />
         <DataGridBody issues={this.state.issues} candidates={this.state.candidates} />
       </table>
@@ -146,4 +138,42 @@ var DataGrid = React.createClass({
 React.render(
   <DataGrid/>,
   document.getElementById('content')
+);
+
+var Leaderboard = React.createClass({
+  getInitialState: function() {
+    return { candidates: { candidates: [] } };
+  },
+  componentDidMount: function() {
+    $.ajax({
+      url: "data/2016/candidates.json",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({candidates: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error("data/2016/candidates.json", status, err.toString());
+      }.bind(this)
+    });
+  },
+  render: function() {
+    console.log(this.state.candidates)
+
+    var topCandidates = take(orderByDescending(this.state.candidates.candidates, function(_) { return _.alignmentWithAmericans;}), 3).map(function(candidate){
+      return (
+        <li>{candidate.firstName} {candidate.lastName}</li>
+      );
+    });
+    return (
+      <ol>
+        {topCandidates}
+      </ol>
+    );
+  }
+});
+
+React.render(
+  <Leaderboard/>,
+  document.getElementById('leaderboard')
 );
